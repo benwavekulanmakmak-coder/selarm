@@ -25,7 +25,6 @@ export function AlarmForm({
   const [alarmName, setAlarmName] = useState("")
   const [timeInput, setTimeInput] = useState("00:00")
   const [timeDigits, setTimeDigits] = useState<string[]>([])
-  const [isEditing, setIsEditing] = useState(false)
 
   const soundName =
     selectedSound === "default"
@@ -40,61 +39,48 @@ export function AlarmForm({
   const formatTimeFromDigits = useCallback((digits: string[]): string => {
     if (digits.length === 0) return "00:00"
     
+    // Parse all digits
+    const d = digits.map(d => parseInt(d, 10))
+    
     if (digits.length === 1) {
-      // First digit: 0-2
-      const hour1 = parseInt(digits[0], 10)
-      const maxHour = hour1 > 2 ? 3 : 23
-      const hours = Math.min(maxHour, hour1 * 10)
-      return `${String(hours).padStart(2, '0')}:00`
+      // Single digit: treat as first hour digit
+      // If > 2, it becomes 0X (e.g., 3 -> 03:00)
+      if (d[0] > 2) {
+        return `0${d[0]}:00`
+      }
+      return `${d[0]}0:00`
     }
     
     if (digits.length === 2) {
-      // Second digit: depends on first digit
-      const hour1 = parseInt(digits[0], 10)
-      const hour2 = parseInt(digits[1], 10)
-      
-      if (hour1 === 0 || hour1 === 1) {
-        // 00-19: any second digit 0-9
-        const hours = hour1 * 10 + hour2
-        return `${String(hours).padStart(2, '0')}:00`
-      } else if (hour1 === 2) {
-        // 20-23: second digit 0-3
-        const hours = Math.min(23, 20 + hour2)
-        return `${String(hours).padStart(2, '0')}:00`
+      // Two digits: form hours
+      let hours = d[0] * 10 + d[1]
+      // Cap at 23
+      if (hours > 23) {
+        hours = 23
       }
+      return `${String(hours).padStart(2, '0')}:00`
     }
     
     if (digits.length === 3) {
-      // Third digit: minutes first digit 0-5
-      const hour1 = parseInt(digits[0], 10)
-      const hour2 = parseInt(digits[1], 10)
-      const minute1 = Math.min(5, parseInt(digits[2], 10))
+      // Three digits: first two are hours, third is first minute digit
+      let hours = d[0] * 10 + d[1]
+      if (hours > 23) hours = 23
       
-      let hours = 0
-      if (hour1 === 0 || hour1 === 1) {
-        hours = hour1 * 10 + hour2
-      } else if (hour1 === 2) {
-        hours = Math.min(23, 20 + hour2)
-      }
-      
+      // Minutes first digit must be 0-5
+      const minute1 = Math.min(5, d[2])
       return `${String(hours).padStart(2, '0')}:${minute1}0`
     }
     
     if (digits.length >= 4) {
-      // Fourth digit: minutes second digit 0-9
-      const hour1 = parseInt(digits[0], 10)
-      const hour2 = parseInt(digits[1], 10)
-      const minute1 = Math.min(5, parseInt(digits[2], 10))
-      const minute2 = Math.min(9, parseInt(digits[3], 10))
+      // Four digits: HHMM format
+      let hours = d[0] * 10 + d[1]
+      if (hours > 23) hours = 23
       
-      let hours = 0
-      if (hour1 === 0 || hour1 === 1) {
-        hours = hour1 * 10 + hour2
-      } else if (hour1 === 2) {
-        hours = Math.min(23, 20 + hour2)
-      }
-      
+      // Minutes: first digit 0-5, second digit 0-9
+      const minute1 = Math.min(5, d[2])
+      const minute2 = d[3]
       const minutes = minute1 * 10 + minute2
+      
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
     }
     
@@ -102,13 +88,11 @@ export function AlarmForm({
   }, [])
 
   const handleTimeFocus = () => {
-    setIsEditing(true)
     setTimeDigits([])
     setTimeInput("00:00")
   }
 
   const handleTimeBlur = () => {
-    setIsEditing(false)
     if (timeDigits.length === 0) {
       setTimeInput(selectedTime)
     } else {
@@ -193,7 +177,7 @@ export function AlarmForm({
             placeholder="Wake up, Workout, etc."
           />
         </div>
-        <div className="form-row">
+        <div className="form-row" style={{ marginBottom: "36px" }}>
           <label className="form-label">Time</label>
           <div style={{ position: "relative" }}>
             <input
@@ -217,15 +201,15 @@ export function AlarmForm({
             />
             <div style={{
               position: "absolute",
-              bottom: "-20px",
+              bottom: "-24px",
               left: 0,
               right: 0,
               textAlign: "center",
-              fontSize: "12px",
+              fontSize: "11px",
               color: "var(--text-3)",
               opacity: 0.7,
             }}>
-              Type numbers: 3 → 03:00, 33 → 23:00, 335 → 23:50
+              Type 4 digits: 0730 = 07:30, 1445 = 14:45
             </div>
           </div>
         </div>
@@ -243,7 +227,7 @@ export function AlarmForm({
           </button>
         </div>
         <button type="button" className="btn-primary btn-optimized" onClick={handleAddAlarm}>
-          ➕ ADD ALARM
+          ADD ALARM
         </button>
       </div>
     </div>

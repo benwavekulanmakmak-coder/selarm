@@ -40,8 +40,8 @@ export function AlarmList({ alarms, onToggle, onDelete, onClearAll }: AlarmListP
             >
               <div className="alarm-dot"></div>
               <div className="alarm-info">
-                <div className="alarm-name">{alarm.name}</div>
                 <div className="alarm-time">{alarm.time}</div>
+                <div className="alarm-name">{alarm.name}</div>
               </div>
               <div className="alarm-btns">
                 <button

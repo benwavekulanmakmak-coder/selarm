@@ -202,6 +202,31 @@ export function useSound() {
     }
   }, [])
 
+  // Define stopSound first so playSound can reference it
+  const stopSound = useCallback(() => {
+    if (audioRef.current) {
+      try {
+        if ("isAudioContext" in audioRef.current && audioRef.current.isAudioContext) {
+          const ctx = audioRef.current as AudioElement
+          if (ctx.source) {
+            ctx.source.stop()
+          }
+          if (ctx.audioCtx) {
+            ctx.audioCtx.close()
+          }
+        } else {
+          const audio = audioRef.current as HTMLAudioElement
+          audio.pause()
+          audio.currentTime = 0
+        }
+      } catch (error) {
+        console.error("Error stopping sound:", error)
+      }
+      audioRef.current = null
+    }
+    setIsPlaying(false)
+  }, [])
+
   const playSound = useCallback(
     (soundId: string, sounds: Record<string, Sound>, autoStopMs?: number) => {
       stopSound()
@@ -277,32 +302,8 @@ export function useSound() {
       setIsPlaying(false)
       return false
     },
-    [getDefaultSound]
+    [getDefaultSound, stopSound]
   )
-
-  const stopSound = useCallback(() => {
-    if (audioRef.current) {
-      try {
-        if ("isAudioContext" in audioRef.current && audioRef.current.isAudioContext) {
-          const ctx = audioRef.current as AudioElement
-          if (ctx.source) {
-            ctx.source.stop()
-          }
-          if (ctx.audioCtx) {
-            ctx.audioCtx.close()
-          }
-        } else {
-          const audio = audioRef.current as HTMLAudioElement
-          audio.pause()
-          audio.currentTime = 0
-        }
-      } catch (error) {
-        console.error("Error stopping sound:", error)
-      }
-      audioRef.current = null
-    }
-    setIsPlaying(false)
-  }, [])
 
   return { playSound, stopSound, isPlaying }
 }
