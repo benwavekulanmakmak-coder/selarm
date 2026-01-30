@@ -3,6 +3,54 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Font imports should be in HTML or via @font-face */
+/* Example @font-face declarations - REPLACE WITH ACTUAL FONT SOURCES */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback font stacks */
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
 /* THEME: DARK (default) */
 :root {
   --bg: #0a0a0c;
@@ -25,41 +73,39 @@
   --bg-gradient-1: #7c3aed;
   --bg-gradient-2: #4f46e5;
   --bg-gradient-3: #8b5cf6;
-  --radius: 0.625rem; /* User's radius takes precedence */
+  --radius: 0.625rem;
 
-  /* Shadcn Dark Theme Variables - integrated into user's default dark theme (:root) */
-  --background: var(--bg); /* oklch(0.145 0 0); */
-  --foreground: var(--text); /* oklch(0.985 0 0); */
-  --card: var(--surface); /* oklch(0.145 0 0); */
-  --card-foreground: var(--text); /* oklch(0.985 0 0); */
-  --popover: var(--surface); /* oklch(0.145 0 0); */
-  --popover-foreground: var(--text); /* oklch(0.985 0 0); */
-  --primary: var(--text); /* oklch(0.985 0 0); */
-  --primary-foreground: var(--bg); /* oklch(0.205 0 0); */
-  --secondary: var(--surface-2); /* oklch(0.269 0 0); */
-  --secondary-foreground: var(--text); /* oklch(0.985 0 0); */
-  --muted: var(--surface-2); /* oklch(0.269 0 0); */
-  --muted-foreground: var(--text-2); /* oklch(0.708 0 0); */
-  /* --accent: var(--accent); <- User already defines accent, takes precedence */
-  --accent-foreground: var(--text); /* oklch(0.985 0 0); */
-  --destructive: var(--danger); /* oklch(0.396 0.141 25.723); */
-  --destructive-foreground: var(--text); /* oklch(0.637 0.237 25.331); */
-  /* --border: var(--border); <- User already defines border, takes precedence */
-  --input: var(--border); /* oklch(0.269 0 0); */
-  --ring: rgba(255, 255, 255, 0.4); /* oklch(0.439 0 0); (Approximation for 'ring' in existing dark theme) */
-  --chart-1: #7E22CE; /* oklch(0.488 0.243 264.376); - Example, pick a color that fits*/
-  --chart-2: #3F6212; /* oklch(0.696 0.17 162.48); - Example, pick a color that fits*/
-  --chart-3: #F0B98A; /* oklch(0.769 0.188 70.08); - Example, pick a color that fits*/
-  --chart-4: #8B5CF6; /* oklch(0.627 0.265 303.9); - Example, pick a color that fits*/
-  --chart-5: #FBBF24; /* oklch(0.645 0.246 16.439); - Example, pick a color that fits*/
-  --sidebar: var(--bg-elevated); /* oklch(0.205 0 0); */
-  --sidebar-foreground: var(--text); /* oklch(0.985 0 0); */
-  --sidebar-primary: var(--accent); /* oklch(0.488 0.243 264.376); */
-  --sidebar-primary-foreground: var(--text); /* oklch(0.985 0 0); */
-  --sidebar-accent: var(--surface-2); /* oklch(0.269 0 0); */
-  --sidebar-accent-foreground: var(--text); /* oklch(0.985 0 0); */
-  --sidebar-border: var(--border); /* oklch(0.269 0 0); */
-  --sidebar-ring: rgba(255, 255, 255, 0.4); /* oklch(0.439 0 0); */
+  /* Shadcn Variables */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--text);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-2);
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--text);
+  --input: var(--border);
+  --ring: rgba(255, 255, 255, 0.4);
+  --chart-1: #7E22CE;
+  --chart-2: #3F6212;
+  --chart-3: #F0B98A;
+  --chart-4: #8B5CF6;
+  --chart-5: #FBBF24;
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--text);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: rgba(255, 255, 255, 0.4);
 }
 
 /* THEME: LIGHT */
@@ -85,39 +131,37 @@
   --bg-gradient-2: #a78bfa;
   --bg-gradient-3: #d8b4fe;
 
-  /* Shadcn Light Theme Variables - integrated into user's light theme */
-  --background: var(--bg); /* oklch(1 0 0); */
-  --foreground: var(--text); /* oklch(0.145 0 0); */
-  --card: var(--surface); /* oklch(1 0 0); */
-  --card-foreground: var(--text); /* oklch(0.145 0 0); */
-  --popover: var(--surface); /* oklch(1 0 0); */
-  --popover-foreground: var(--text); /* oklch(0.145 0 0); */
-  --primary: var(--text); /* oklch(0.205 0 0); */
-  --primary-foreground: var(--bg); /* oklch(0.985 0 0); */
-  --secondary: var(--surface-2); /* oklch(0.97 0 0); */
-  --secondary-foreground: var(--text); /* oklch(0.205 0 0); */
-  --muted: var(--surface-2); /* oklch(0.97 0 0); */
-  --muted-foreground: var(--text-2); /* oklch(0.556 0 0); */
-  /* --accent: var(--accent); <- User already defines accent, takes precedence */
-  --accent-foreground: var(--text); /* oklch(0.205 0 0); */
-  --destructive: var(--danger); /* oklch(0.577 0.245 27.325); */
-  --destructive-foreground: var(--danger); /* oklch(0.577 0.245 27.325); */
-  /* --border: var(--border); <- User already defines border, takes precedence */
-  --input: var(--border); /* oklch(0.922 0 0); */
-  --ring: rgba(0, 0, 0, 0.3); /* oklch(0.708 0 0); (Approximation for 'ring' in existing light theme) */
-  --chart-1: #C2410C; /* oklch(0.646 0.222 41.116); */
-  --chart-2: #65A30D; /* oklch(0.6 0.118 184.704); */
-  --chart-3: #22C55E; /* oklch(0.398 0.07 227.392); */
-  --chart-4: #8B5CF6; /* oklch(0.828 0.189 84.429); */
-  --chart-5: #FBBF24; /* oklch(0.769 0.188 70.08); */
-  --sidebar: var(--bg-elevated); /* oklch(0.985 0 0); */
-  --sidebar-foreground: var(--text); /* oklch(0.145 0 0); */
-  --sidebar-primary: var(--accent); /* oklch(0.205 0 0); */
-  --sidebar-primary-foreground: var(--bg); /* oklch(0.985 0 0); */
-  --sidebar-accent: var(--surface-2); /* oklch(0.97 0 0); */
-  --sidebar-accent-foreground: var(--text); /* oklch(0.205 0 0); */
-  --sidebar-border: var(--border); /* oklch(0.922 0 0); */
-  --sidebar-ring: rgba(0, 0, 0, 0.3); /* oklch(0.708 0 0); */
+  /* Shadcn Light Variables */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--text);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-2);
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--danger);
+  --input: var(--border);
+  --ring: rgba(0, 0, 0, 0.3);
+  --chart-1: #C2410C;
+  --chart-2: #65A30D;
+  --chart-3: #22C55E;
+  --chart-4: #8B5CF6;
+  --chart-5: #FBBF24;
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--bg);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: rgba(0, 0, 0, 0.3);
 }
 
 /* THEME: NAVY */
@@ -142,7 +186,7 @@
   --bg-gradient-1: #3b82f6;
   --bg-gradient-2: #1e40af;
   --bg-gradient-3: #60a5fa;
-  /* Shadcn Dark Theme Variables - integrated into user's navy theme */
+  /* Shadcn Variables for Navy */
   --background: var(--bg);
   --foreground: var(--text);
   --card: var(--surface);
@@ -155,13 +199,11 @@
   --secondary-foreground: var(--text);
   --muted: var(--surface-2);
   --muted-foreground: var(--text-2);
-  /* --accent: var(--accent); */
   --accent-foreground: var(--text);
   --destructive: var(--danger);
   --destructive-foreground: var(--text);
-  /* --border: var(--border); */
   --input: var(--border);
-  --ring: rgba(255, 255, 255, 0.4); /* Approximate ring for navy */
+  --ring: rgba(255, 255, 255, 0.4);
   --chart-1: #4F46E5;
   --chart-2: #2563EB;
   --chart-3: #0F3460;
@@ -199,7 +241,7 @@
   --bg-gradient-1: #d97706;
   --bg-gradient-2: #b45309;
   --bg-gradient-3: #f59e0b;
-  /* Shadcn Dark Theme Variables - integrated into user's amber theme */
+  /* Shadcn Variables for Amber */
   --background: var(--bg);
   --foreground: var(--text);
   --card: var(--surface);
@@ -212,13 +254,11 @@
   --secondary-foreground: var(--text);
   --muted: var(--surface-2);
   --muted-foreground: var(--text-2);
-  /* --accent: var(--accent); */
   --accent-foreground: var(--text);
   --destructive: var(--danger);
   --destructive-foreground: var(--text);
-  /* --border: var(--border); */
   --input: var(--border);
-  --ring: rgba(255, 255, 255, 0.4); /* Approximate ring for amber */
+  --ring: rgba(255, 255, 255, 0.4);
   --chart-1: #EAB308;
   --chart-2: #F59E0B;
   --chart-3: #D97706;
@@ -234,27 +274,14 @@
   --sidebar-ring: rgba(255, 255, 255, 0.4);
 }
 
+/* Theme Configuration */
 @theme inline {
-  --font-sans: var(--font-inter), 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 
-  /* Existing mappings (user's theme) */
-  --color-background: var(--bg);
-  --color-foreground: var(--text);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-surface-3: var(--surface-3);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-text: var(--text);
-  --color-text-2: var(--text-2);
-  --color-text-3: var(--text-3);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-
-  /* Shadcn mappings (merged) */
+  /* Color Mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -265,10 +292,11 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent); /* User's accent variable takes precedence */
+  --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
@@ -284,11 +312,32 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom Color Extensions */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border-subtle: var(--border-subtle);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-glow: var(--accent-glow);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  /* Border Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* Base Styles */
 @layer base {
   * {
-    @apply border-border outline-ring/50; /* Merged: Keep user's border + add shadcn outline */
+    @apply border-border outline-ring/50;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -297,19 +346,27 @@
   html, body {
     height: 100%;
     font-family: var(--font-sans);
-    background: var(--bg); /* User's custom background */
-    color: var(--text); /* User's custom text */
+    background: var(--background);
+    color: var(--foreground);
     -webkit-font-smoothing: antialiased;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
   
   body {
     min-height: 100vh;
     position: relative;
-    @apply bg-background text-foreground; /* Added shadcn base styles. Note: these will likely be overridden by the explicit `background` and `color` in `html, body` above, but `bg-background` and `text-foreground` classes could still be used in HTML */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
   }
 }
 
@@ -469,10 +526,8 @@
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Prevent text selection */
-.clock-display, .digit-box, .digit-track, .digit-num, .clock-sep, .clock-date,
-.alarm-time, .alarm-name, .ring-time, .ring-title, .logo-text,
-.sound-picker-text, .form-input[type="time"], .time-picker-display {
+/* Utility Classes */
+.no-select {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -566,6 +621,7 @@
 }
 
 .logo-text {
+  font-family: var(--font-sans);
   font-size: 24px;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -574,7 +630,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
   position: relative;
 }
 
@@ -600,7 +655,7 @@
   gap: 10px;
 }
 
-.icon-btn-header {
+.icon-btn {
   width: 44px;
   height: 44px;
   background: var(--surface);
@@ -615,7 +670,7 @@
   overflow: hidden;
 }
 
-.icon-btn-header::before {
+.icon-btn::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -624,7 +679,7 @@
   transition: opacity 0.3s ease;
 }
 
-.icon-btn-header:hover {
+.icon-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--surface-2);
@@ -632,16 +687,16 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
-.icon-btn-header:hover::before {
+.icon-btn:hover::before {
   opacity: 0.1;
 }
 
-.icon-btn-header:active {
+.icon-btn:active {
   transform: translateY(0) scale(0.95);
   transition: all 0.1s ease;
 }
 
-.icon-btn-header svg {
+.icon-btn svg {
   width: 20px;
   height: 20px;
   position: relative;
@@ -649,7 +704,7 @@
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.icon-btn-header:hover svg {
+.icon-btn:hover svg {
   transform: scale(1.2);
 }
 
@@ -751,7 +806,7 @@
 .digit-box {
   width: 84px;
   height: 96px;
-  background: var(--bg);
+  background: var(--background);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   overflow: hidden;
@@ -792,10 +847,10 @@
 }
 
 .digit-num {
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 52px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   height: 96px;
   display: flex;
   align-items: center;
@@ -805,7 +860,7 @@
 }
 
 .clock-sep {
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 44px;
   font-weight: 700;
   color: var(--accent);
@@ -816,6 +871,7 @@
 }
 
 .clock-date {
+  font-family: var(--font-sans);
   text-align: center;
   font-size: 14px;
   color: var(--text-2);
@@ -851,6 +907,7 @@
 }
 
 .section-title {
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -860,10 +917,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
 }
 
 .section-action {
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   color: var(--accent);
@@ -888,7 +945,7 @@
 }
 
 .card {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
@@ -922,6 +979,7 @@
 }
 
 .form-label {
+  font-family: var(--font-sans);
   display: block;
   font-size: 13px;
   font-weight: 700;
@@ -941,13 +999,13 @@
 .time-picker-display {
   width: 100%;
   padding: 16px 20px;
-  background: var(--bg);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 14px;
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 16px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--foreground);
   outline: none;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
@@ -984,7 +1042,7 @@
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: var(--surface);
+  background: var(--popover);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 16px;
@@ -1011,10 +1069,10 @@
 
 .time-option {
   padding: 12px 16px;
-  background: var(--bg);
+  background: var(--background);
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 500;
   color: var(--text-2);
@@ -1045,12 +1103,12 @@
 .form-input {
   width: 100%;
   padding: 16px 20px;
-  background: var(--bg);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 14px;
-  font-family: inherit;
+  font-family: var(--font-sans);
   font-size: 15px;
-  color: var(--text);
+  color: var(--foreground);
   outline: none;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -1073,7 +1131,7 @@
 .sound-picker-btn {
   width: 100%;
   padding: 16px 20px;
-  background: var(--bg);
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 14px;
   display: flex;
@@ -1097,8 +1155,6 @@
   height: 20px;
   color: var(--text-3);
   flex-shrink: 0;
-  stroke: currentColor;
-  fill: none;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 1;
@@ -1110,6 +1166,7 @@
 }
 
 .sound-picker-text {
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
   color: var(--text-2);
@@ -1138,7 +1195,7 @@
   background: linear-gradient(135deg, var(--accent) 0%, var(--bg-gradient-1) 100%);
   border: none;
   border-radius: 14px;
-  font-family: inherit;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 700;
   color: white;
@@ -1183,7 +1240,7 @@
   align-items: center;
   gap: 16px;
   padding: 20px 24px;
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1219,7 +1276,7 @@
 
 .alarm-item.off .alarm-dot {
   background: var(--text-3);
-  box-shadow: 0 0 0px transparent;
+  box-shadow: none;
 }
 
 .alarm-info {
@@ -1228,10 +1285,10 @@
 }
 
 .alarm-time {
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 20px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   transition: color 0.3s ease;
   letter-spacing: -0.02em;
 }
@@ -1241,6 +1298,7 @@
 }
 
 .alarm-name {
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-2);
@@ -1320,6 +1378,7 @@
 }
 
 .empty-text {
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--text-3);
   font-weight: 500;
@@ -1348,27 +1407,26 @@
   }
 }
 
-:root[data-theme="light"] .overlay {
+[data-theme="light"] .overlay {
   background: rgba(245, 245, 244, 0.9);
 }
 
-:root[data-theme="navy"] .overlay {
+[data-theme="navy"] .overlay {
   background: rgba(5, 28, 61, 0.9);
 }
 
-:root[data-theme="amber"] .overlay {
+[data-theme="amber"] .overlay {
   background: rgba(31, 22, 9, 0.9);
 }
 
 .overlay.show {
   display: grid;
-  animation: overlayIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .modal {
   width: 90%;
   max-width: 420px;
-  background: var(--surface);
+  background: var(--popover);
   border: 1px solid var(--border);
   border-radius: 28px;
   position: relative;
@@ -1397,7 +1455,7 @@
 
 .modal-close:hover {
   background: var(--surface-3);
-  color: var(--text);
+  color: var(--foreground);
   transform: rotate(90deg) scale(1.1);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
@@ -1414,14 +1472,16 @@
 }
 
 .sound-panel-title {
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   margin-bottom: 6px;
   letter-spacing: -0.02em;
 }
 
 .sound-panel-subtitle {
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--text-3);
   font-weight: 500;
@@ -1480,7 +1540,7 @@
 .sound-item-icon {
   width: 48px;
   height: 48px;
-  background: var(--bg);
+  background: var(--background);
   border-radius: 12px;
   display: grid;
   place-items: center;
@@ -1515,9 +1575,10 @@
 }
 
 .sound-item-name {
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--foreground);
   margin-bottom: 4px;
   transition: color 0.3s ease;
 }
@@ -1527,6 +1588,7 @@
 }
 
 .sound-item-meta {
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--text-3);
   font-weight: 500;
@@ -1554,7 +1616,7 @@
 .upload-btn {
   width: 100%;
   padding: 20px;
-  background: var(--bg);
+  background: var(--background);
   border: 2px dashed var(--border);
   border-radius: 14px;
   display: flex;
@@ -1593,6 +1655,7 @@
 }
 
 .upload-btn span {
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--text-2);
   font-weight: 600;
@@ -1609,9 +1672,10 @@
 }
 
 .settings-panel-title {
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   letter-spacing: -0.02em;
 }
 
@@ -1628,6 +1692,7 @@
 }
 
 .settings-label {
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -1645,10 +1710,11 @@
 
 .theme-btn {
   padding: 20px;
-  background: var(--bg);
+  background: var(--background);
   border: 2px solid var(--border);
   border-radius: 14px;
   color: var(--text-2);
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -1707,6 +1773,7 @@
 }
 
 .ring-label {
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -1726,18 +1793,19 @@
 }
 
 .ring-title {
+  font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
 
 .ring-time {
-  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 52px;
   font-weight: 800;
-  color: var(--text);
+  color: var(--foreground);
   margin-bottom: 40px;
   animation: timeGlow 2s ease-in-out infinite alternate;
   letter-spacing: -0.02em;
@@ -1752,7 +1820,7 @@
   flex: 1;
   padding: 20px 24px;
   border-radius: 14px;
-  font-family: inherit;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -1784,7 +1852,7 @@
 
 .ring-btn-snooze:hover {
   background: var(--surface-3);
-  color: var(--text);
+  color: var(--foreground);
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
@@ -1814,7 +1882,7 @@
 }
 
 .notification {
-  background: var(--surface);
+  background: var(--popover);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px 20px;
@@ -1846,8 +1914,9 @@
 
 .notification-content {
   flex: 1;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
-  color: var(--text);
+  color: var(--foreground);
   line-height: 1.4;
 }
