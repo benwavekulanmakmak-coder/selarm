@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: '--font-jetbrains' });
 
 export const metadata: Metadata = {
-  title: 'Selarm - Modern Alarm Clock',
-  description: 'A beautiful, modern alarm clock application with custom sounds and multiple themes',
+  title: 'Selarm - Your Sound',
+  description: 'i, the developer seen how baseline UGLY the other websites were and took action!',
   generator: 'v0.app',
 }
 
