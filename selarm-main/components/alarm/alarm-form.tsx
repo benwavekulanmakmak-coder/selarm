@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Music } from "lucide-react"
 import type { Sound } from "@/hooks/use-alarm-state"
 
@@ -23,110 +23,173 @@ export function AlarmForm({
   onAddAlarm,
 }: AlarmFormProps) {
   const [alarmName, setAlarmName] = useState("")
-  const [timeInput, setTimeInput] = useState(selectedTime)
-  const [isEditingTime, setIsEditingTime] = useState(false)
-  const timeInputRef = useRef<HTMLInputElement>(null)
+  const [displayTime, setDisplayTime] = useState("00:00")
+  const [timeDigits, setTimeDigits] = useState<string[]>([])
+  const [selectionStart, setSelectionStart] = useState<number | null>(null)
 
   const soundName =
     selectedSound === "default"
       ? "Default Beep"
       : sounds[selectedSound]?.name || "Default Beep"
 
-  // Sync selectedTime prop to local state when not editing
+  // Initialize display time
   useEffect(() => {
-    if (!isEditingTime) {
-      setTimeInput(selectedTime)
-    }
-  }, [selectedTime, isEditingTime])
+    setDisplayTime(selectedTime)
+  }, [selectedTime])
 
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value
+  // Process key press and update time digits
+  const processTimeKey = useCallback((key: string): string => {
+    if (!/^[0-9]$/.test(key)) return key
     
-    // Allow empty input
-    if (input === "") {
-      setTimeInput("")
-      setIsEditingTime(true)
+    const newDigits = [...timeDigits, key].slice(-4) // Keep only last 4 digits
+    
+    if (newDigits.length === 1) {
+      // First digit: 0-2
+      const hour1 = parseInt(newDigits[0], 10)
+      const maxHour = hour1 > 2 ? 3 : 23 // If first digit > 2, max is 23
+      const hours = Math.min(maxHour, hour1 * 10)
+      return `${String(hours).padStart(2, '0')}:00`
+    }
+    
+    if (newDigits.length === 2) {
+      // Second digit: depends on first digit
+      const hour1 = parseInt(newDigits[0], 10)
+      const hour2 = parseInt(newDigits[1], 10)
+      
+      if (hour1 === 0 || hour1 === 1) {
+        // 00-19: any second digit 0-9
+        const hours = hour1 * 10 + hour2
+        return `${String(hours).padStart(2, '0')}:00`
+      } else if (hour1 === 2) {
+        // 20-23: second digit 0-3
+        const hours = Math.min(23, 20 + hour2)
+        return `${String(hours).padStart(2, '0')}:00`
+      }
+    }
+    
+    if (newDigits.length === 3) {
+      // Third digit: minutes first digit 0-5
+      const hour1 = parseInt(newDigits[0], 10)
+      const hour2 = parseInt(newDigits[1], 10)
+      const minute1 = Math.min(5, parseInt(newDigits[2], 10))
+      
+      let hours = 0
+      if (hour1 === 0 || hour1 === 1) {
+        hours = hour1 * 10 + hour2
+      } else if (hour1 === 2) {
+        hours = Math.min(23, 20 + hour2)
+      }
+      
+      return `${String(hours).padStart(2, '0')}:${minute1}0`
+    }
+    
+    if (newDigits.length === 4) {
+      // Fourth digit: minutes second digit 0-9
+      const hour1 = parseInt(newDigits[0], 10)
+      const hour2 = parseInt(newDigits[1], 10)
+      const minute1 = Math.min(5, parseInt(newDigits[2], 10))
+      const minute2 = Math.min(9, parseInt(newDigits[3], 10))
+      
+      let hours = 0
+      if (hour1 === 0 || hour1 === 1) {
+        hours = hour1 * 10 + hour2
+      } else if (hour1 === 2) {
+        hours = Math.min(23, 20 + hour2)
+      }
+      
+      const minutes = minute1 * 10 + minute2
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    }
+    
+    return "00:00"
+  }, [timeDigits])
+
+  const handleTimeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement
+    const start = input.selectionStart || 0
+    
+    // Handle backspace
+    if (e.key === 'Backspace') {
+      e.preventDefault()
+      const newDigits = [...timeDigits]
+      newDigits.pop()
+      setTimeDigits(newDigits)
+      
+      if (newDigits.length === 0) {
+        setDisplayTime("00:00")
+      } else {
+        setDisplayTime(processTimeKey(""))
+      }
       return
     }
     
-    // Remove any non-digit characters
-    const digits = input.replace(/[^0-9]/g, "")
+    // Handle delete
+    if (e.key === 'Delete') {
+      e.preventDefault()
+      setTimeDigits([])
+      setDisplayTime("00:00")
+      return
+    }
     
-    if (digits.length <= 4) {
-      // While typing, just show digits
-      setTimeInput(digits)
-      setIsEditingTime(true)
-    } else {
-      // Auto-format when we have enough digits
-      const hours = digits.slice(0, 2)
-      const minutes = digits.slice(2, 4)
+    // Handle arrow keys for navigation
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab', 'Escape'].includes(e.key)) {
+      return
+    }
+    
+    // Handle number keys
+    if (/^[0-9]$/.test(e.key)) {
+      e.preventDefault()
+      const newTime = processTimeKey(e.key)
+      setDisplayTime(newTime)
       
-      // Validate hours (00-23)
-      const validHours = Math.min(23, Math.max(0, parseInt(hours, 10)))
-      const validMinutes = Math.min(59, Math.max(0, parseInt(minutes, 10)))
+      // Update timeDigits for next key press
+      const newDigits = [...timeDigits, e.key].slice(-4)
+      setTimeDigits(newDigits)
       
-      const formatted = `${String(validHours).padStart(2, '0')}:${String(validMinutes).padStart(2, '0')}`
-      setTimeInput(formatted)
-      setIsEditingTime(false)
-      onTimeChange(formatted)
+      // Notify parent of time change if we have valid digits
+      if (newDigits.length >= 2) {
+        onTimeChange(newTime)
+      }
     }
   }
 
   const handleTimeFocus = () => {
-    setIsEditingTime(true)
-    // Remove colon for editing
-    if (timeInput.includes(":")) {
-      setTimeInput(timeInput.replace(":", ""))
+    // Save current selection
+    const input = document.getElementById('time-input') as HTMLInputElement
+    if (input) {
+      setSelectionStart(input.selectionStart)
     }
+    
+    // Clear digits when focusing to start fresh
+    setTimeDigits([])
   }
 
-  const handleTimeBlur = useCallback(() => {
-    setIsEditingTime(false)
-    
-    const currentValue = timeInput.replace(/[^0-9]/g, "")
-    
-    if (currentValue.length === 0) {
-      // Reset to selectedTime if empty
-      setTimeInput(selectedTime)
-      return
-    }
-    
-    if (currentValue.length <= 2) {
-      // Only hours entered, add default minutes
-      const hours = Math.min(23, Math.max(0, parseInt(currentValue, 10)))
-      const formatted = `${String(hours).padStart(2, '0')}:00`
-      setTimeInput(formatted)
-      onTimeChange(formatted)
-      return
-    }
-    
-    if (currentValue.length === 3) {
-      // Handle 3 digits (e.g., "123" -> "01:23")
-      const hours = Math.min(23, Math.max(0, parseInt(currentValue[0], 10)))
-      const minutes = Math.min(59, Math.max(0, parseInt(currentValue.slice(1, 3), 10)))
-      const formatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
-      setTimeInput(formatted)
-      onTimeChange(formatted)
-      return
-    }
-    
-    if (currentValue.length >= 4) {
-      // Format as HH:MM
-      const hours = Math.min(23, Math.max(0, parseInt(currentValue.slice(0, 2), 10)))
-      const minutes = Math.min(59, Math.max(0, parseInt(currentValue.slice(2, 4), 10)))
-      const formatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
-      setTimeInput(formatted)
+  const handleTimeBlur = () => {
+    // If no digits were entered, keep the original time
+    if (timeDigits.length === 0) {
+      setDisplayTime(selectedTime)
+    } else if (timeDigits.length < 2) {
+      // If only partial hour entered, pad it
+      const hour = parseInt(timeDigits[0] || '0', 10)
+      const formatted = `${String(hour).padStart(2, '0')}:00`
+      setDisplayTime(formatted)
       onTimeChange(formatted)
     }
-  }, [timeInput, selectedTime, onTimeChange])
+    // If we have 2+ digits, the time is already updated
+  }
+
+  // Handle clicking on specific position in the time input
+  const handleTimeClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement
+    setSelectionStart(input.selectionStart)
+  }
 
   const handleAddAlarm = () => {
-    // Ensure time is formatted before adding alarm
-    if (isEditingTime) {
-      handleTimeBlur()
-    }
     onAddAlarm(alarmName.trim() || "Alarm")
     setAlarmName("")
+    // Reset time input
+    setTimeDigits([])
+    setDisplayTime(selectedTime)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -155,25 +218,30 @@ export function AlarmForm({
         <div className="form-row">
           <label className="form-label">Time</label>
           <input
-            ref={timeInputRef}
+            id="time-input"
             type="text"
             inputMode="numeric"
             className="form-input"
-            value={timeInput}
-            onChange={handleTimeChange}
+            value={displayTime}
+            onKeyDown={handleTimeKeyDown}
             onFocus={handleTimeFocus}
             onBlur={handleTimeBlur}
-            onKeyDown={handleKeyDown}
-            placeholder="HHMM or HH:MM"
-            maxLength={isEditingTime ? 4 : 5}
+            onClick={handleTimeClick}
+            onChange={() => {}} // Controlled component, handled by onKeyDown
+            placeholder="Click and type numbers"
+            maxLength={5}
             style={{
               fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
               textAlign: "center",
               letterSpacing: "0.1em",
               fontSize: "16px",
               fontWeight: "600",
+              cursor: "text",
             }}
           />
+          <div className="text-xs text-gray-500 mt-1 text-center">
+            Type numbers: 3 → 03:00, 33 → 23:00, 335 → 23:50, 3359 → 23:59
+          </div>
         </div>
         <div className="form-row">
           <label className="form-label">Sound</label>
