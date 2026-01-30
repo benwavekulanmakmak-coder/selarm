@@ -1210,11 +1210,12 @@ code, pre, kbd, samp {
 
 .alarm-time {
   font-family: var(--font-mono);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--foreground);
   transition: color 0.3s ease;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .alarm-item:hover .alarm-time {
@@ -1224,11 +1225,12 @@ code, pre, kbd, samp {
 .alarm-name {
   font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 600;
-  color: var(--text-2);
+  font-weight: 500;
+  color: var(--text-3);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
 .alarm-btns {
