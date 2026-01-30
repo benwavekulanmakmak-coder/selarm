@@ -1,0 +1,470 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* THEME: DARK (default) */
+:root {
+  --bg: #0a0a0c;
+  --bg-elevated: #141418;
+  --surface: #1a1a1f;
+  --surface-2: #222228;
+  --surface-3: #2a2a32;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --text: #f4f4f5;
+  --text-2: #a1a1aa;
+  --text-3: #71717a;
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.15);
+  --accent-glow: rgba(167, 139, 250, 0.35);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --info: #60a5fa;
+  --bg-gradient-1: #7c3aed;
+  --bg-gradient-2: #4f46e5;
+  --bg-gradient-3: #8b5cf6;
+  --radius: 0.625rem; /* User's radius takes precedence */
+
+  /* Shadcn Dark Theme Variables - integrated into user's default dark theme (:root) */
+  --background: var(--bg); /* oklch(0.145 0 0); */
+  --foreground: var(--text); /* oklch(0.985 0 0); */
+  --card: var(--surface); /* oklch(0.145 0 0); */
+  --card-foreground: var(--text); /* oklch(0.985 0 0); */
+  --popover: var(--surface); /* oklch(0.145 0 0); */
+  --popover-foreground: var(--text); /* oklch(0.985 0 0); */
+  --primary: var(--text); /* oklch(0.985 0 0); */
+  --primary-foreground: var(--bg); /* oklch(0.205 0 0); */
+  --secondary: var(--surface-2); /* oklch(0.269 0 0); */
+  --secondary-foreground: var(--text); /* oklch(0.985 0 0); */
+  --muted: var(--surface-2); /* oklch(0.269 0 0); */
+  --muted-foreground: var(--text-2); /* oklch(0.708 0 0); */
+  /* --accent: var(--accent); <- User already defines accent, takes precedence */
+  --accent-foreground: var(--text); /* oklch(0.985 0 0); */
+  --destructive: var(--danger); /* oklch(0.396 0.141 25.723); */
+  --destructive-foreground: var(--text); /* oklch(0.637 0.237 25.331); */
+  /* --border: var(--border); <- User already defines border, takes precedence */
+  --input: var(--border); /* oklch(0.269 0 0); */
+  --ring: rgba(255, 255, 255, 0.4); /* oklch(0.439 0 0); (Approximation for 'ring' in existing dark theme) */
+  --chart-1: #7E22CE; /* oklch(0.488 0.243 264.376); - Example, pick a color that fits*/
+  --chart-2: #3F6212; /* oklch(0.696 0.17 162.48); - Example, pick a color that fits*/
+  --chart-3: #F0B98A; /* oklch(0.769 0.188 70.08); - Example, pick a color that fits*/
+  --chart-4: #8B5CF6; /* oklch(0.627 0.265 303.9); - Example, pick a color that fits*/
+  --chart-5: #FBBF24; /* oklch(0.645 0.246 16.439); - Example, pick a color that fits*/
+  --sidebar: var(--bg-elevated); /* oklch(0.205 0 0); */
+  --sidebar-foreground: var(--text); /* oklch(0.985 0 0); */
+  --sidebar-primary: var(--accent); /* oklch(0.488 0.243 264.376); */
+  --sidebar-primary-foreground: var(--text); /* oklch(0.985 0 0); */
+  --sidebar-accent: var(--surface-2); /* oklch(0.269 0 0); */
+  --sidebar-accent-foreground: var(--text); /* oklch(0.985 0 0); */
+  --sidebar-border: var(--border); /* oklch(0.269 0 0); */
+  --sidebar-ring: rgba(255, 255, 255, 0.4); /* oklch(0.439 0 0); */
+}
+
+/* THEME: LIGHT */
+[data-theme="light"] {
+  --bg: #f5f5f4;
+  --bg-elevated: #f0f0f0;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f5f9;
+  --border: rgba(0, 0, 0, 0.1);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --text: #1c1917;
+  --text-2: #78716c;
+  --text-3: #a8a29e;
+  --accent: #9333ea;
+  --accent-soft: rgba(147, 51, 234, 0.15);
+  --accent-glow: rgba(147, 51, 234, 0.25);
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --bg-gradient-1: #c084fc;
+  --bg-gradient-2: #a78bfa;
+  --bg-gradient-3: #d8b4fe;
+
+  /* Shadcn Light Theme Variables - integrated into user's light theme */
+  --background: var(--bg); /* oklch(1 0 0); */
+  --foreground: var(--text); /* oklch(0.145 0 0); */
+  --card: var(--surface); /* oklch(1 0 0); */
+  --card-foreground: var(--text); /* oklch(0.145 0 0); */
+  --popover: var(--surface); /* oklch(1 0 0); */
+  --popover-foreground: var(--text); /* oklch(0.145 0 0); */
+  --primary: var(--text); /* oklch(0.205 0 0); */
+  --primary-foreground: var(--bg); /* oklch(0.985 0 0); */
+  --secondary: var(--surface-2); /* oklch(0.97 0 0); */
+  --secondary-foreground: var(--text); /* oklch(0.205 0 0); */
+  --muted: var(--surface-2); /* oklch(0.97 0 0); */
+  --muted-foreground: var(--text-2); /* oklch(0.556 0 0); */
+  /* --accent: var(--accent); <- User already defines accent, takes precedence */
+  --accent-foreground: var(--text); /* oklch(0.205 0 0); */
+  --destructive: var(--danger); /* oklch(0.577 0.245 27.325); */
+  --destructive-foreground: var(--danger); /* oklch(0.577 0.245 27.325); */
+  /* --border: var(--border); <- User already defines border, takes precedence */
+  --input: var(--border); /* oklch(0.922 0 0); */
+  --ring: rgba(0, 0, 0, 0.3); /* oklch(0.708 0 0); (Approximation for 'ring' in existing light theme) */
+  --chart-1: #C2410C; /* oklch(0.646 0.222 41.116); */
+  --chart-2: #65A30D; /* oklch(0.6 0.118 184.704); */
+  --chart-3: #22C55E; /* oklch(0.398 0.07 227.392); */
+  --chart-4: #8B5CF6; /* oklch(0.828 0.189 84.429); */
+  --chart-5: #FBBF24; /* oklch(0.769 0.188 70.08); */
+  --sidebar: var(--bg-elevated); /* oklch(0.985 0 0); */
+  --sidebar-foreground: var(--text); /* oklch(0.145 0 0); */
+  --sidebar-primary: var(--accent); /* oklch(0.205 0 0); */
+  --sidebar-primary-foreground: var(--bg); /* oklch(0.985 0 0); */
+  --sidebar-accent: var(--surface-2); /* oklch(0.97 0 0); */
+  --sidebar-accent-foreground: var(--text); /* oklch(0.205 0 0); */
+  --sidebar-border: var(--border); /* oklch(0.922 0 0); */
+  --sidebar-ring: rgba(0, 0, 0, 0.3); /* oklch(0.708 0 0); */
+}
+
+/* THEME: NAVY */
+[data-theme="navy"] {
+  --bg: #051c3d;
+  --bg-elevated: #0a2847;
+  --surface: #0f3460;
+  --surface-2: #14406b;
+  --surface-3: #194575;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text: #e8eef7;
+  --text-2: #a8b5c7;
+  --text-3: #707c8f;
+  --accent: #4fa3ff;
+  --accent-soft: rgba(79, 163, 255, 0.15);
+  --accent-glow: rgba(79, 163, 255, 0.35);
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --info: #60a5fa;
+  --bg-gradient-1: #3b82f6;
+  --bg-gradient-2: #1e40af;
+  --bg-gradient-3: #60a5fa;
+  /* Shadcn Dark Theme Variables - integrated into user's navy theme */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--text);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-2);
+  /* --accent: var(--accent); */
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--text);
+  /* --border: var(--border); */
+  --input: var(--border);
+  --ring: rgba(255, 255, 255, 0.4); /* Approximate ring for navy */
+  --chart-1: #4F46E5;
+  --chart-2: #2563EB;
+  --chart-3: #0F3460;
+  --chart-4: #4FA3FF;
+  --chart-5: #3B82F6;
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--text);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: rgba(255, 255, 255, 0.4);
+}
+
+/* THEME: AMBER */
+[data-theme="amber"] {
+  --bg: #1f1609;
+  --bg-elevated: #2a1e0e;
+  --surface: #3d2817;
+  --surface-2: #4d3620;
+  --surface-3: #5d4429;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text: #f5ede0;
+  --text-2: #dcc9b0;
+  --text-3: #b8a090;
+  --accent: #fbbf24;
+  --accent-soft: rgba(251, 191, 36, 0.15);
+  --accent-glow: rgba(251, 191, 36, 0.35);
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #f59e0b;
+  --info: #60a5fa;
+  --bg-gradient-1: #d97706;
+  --bg-gradient-2: #b45309;
+  --bg-gradient-3: #f59e0b;
+  /* Shadcn Dark Theme Variables - integrated into user's amber theme */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--text);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-2);
+  /* --accent: var(--accent); */
+  --accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--text);
+  /* --border: var(--border); */
+  --input: var(--border);
+  --ring: rgba(255, 255, 255, 0.4); /* Approximate ring for amber */
+  --chart-1: #EAB308;
+  --chart-2: #F59E0B;
+  --chart-3: #D97706;
+  --chart-4: #B45309;
+  --chart-5: #FBBF24;
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--text);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: rgba(255, 255, 255, 0.4);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+
+  /* Existing mappings (user's theme) */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Shadcn mappings (merged) */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); /* User's accent variable takes precedence */
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50; /* Merged: Keep user's border + add shadcn outline */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: var(--font-sans);
+    background: var(--bg); /* User's custom background */
+    color: var(--text); /* User's custom text */
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    overflow-x: hidden;
+  }
+  
+  body {
+    min-height: 100vh;
+    position: relative;
+    @apply bg-background text-foreground; /* Added shadcn base styles. Note: these will likely be overridden by the explicit `background` and `color` in `html, body` above, but `bg-background` and `text-foreground` classes could still be used in HTML */
+  }
+}
+
+/* Background Effects */
+.bg-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-gradient {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  animation: gradientFloat 20s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+.bg-gradient-1 {
+  width: 800px;
+  height: 800px;
+  top: -400px;
+  left: -200px;
+  background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-3) 100%);
+  animation-delay: 0s;
+}
+
+.bg-gradient-2 {
+  width: 700px;
+  height: 700px;
+  bottom: -350px;
+  right: -150px;
+  background: linear-gradient(135deg, var(--bg-gradient-2) 0%, var(--bg-gradient-1) 100%);
+  animation-delay: -7s;
+}
+
+.bg-gradient-3 {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, var(--bg-gradient-3) 0%, var(--accent) 100%);
+  animation-delay: -14s;
+  opacity: 0.15;
+}
+
+@keyframes gradientFloat {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(50px, -30px) scale(1.05) rotate(120deg); }
+  66% { transform: translate(-30px, 50px) scale(1.1) rotate(240deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.05;
+  animation: glowPulse 10s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50% { opacity: 0.1; transform: scale(1.1); }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: particleFloat 20s linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+}
+
+/* Clock animations */
+.clock-sep {
+  animation: sepPulse 2s ease-in-out infinite;
+}
+
+@keyframes sepPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Notification animations */
+@keyframes notificationSlide {
+  from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes modalSlide {
+  from { opacity: 0; transform: scale(0.8) translateY(60px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes alarmItemIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes ringBounce {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes ringIconShake {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes timeGlow {
+  0% { text-shadow: 0 0 30px var(--accent-glow); }
+  100% { text-shadow: 0 0 50px var(--accent-glow), 0 0 70px var(--accent-glow); }
+}
+
+@keyframes dropdownSlide {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Transitions */
+.transition-bounce {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
